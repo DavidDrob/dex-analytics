@@ -1,26 +1,21 @@
 # dex-analytics
 
+My Submission for the Gitcoin DeFi & Cross-Chain Interoperability Hackathon.
 
+# Setup
 
-# Adding your own API Key
+1. git clone https://github.com/DavidDrob/dex-analytics.git
+2. cd dex-analytics
+3. npm install
+4. Get an API Key at https://www.covalenthq.com/platform/#/auth/register
+5. Go to ```src/App.vue```
+6. Change the API Key at line 69
 
 ```
-Get an API Key at https://www.covalenthq.com/platform/#/auth/register
-Go to src/App.vue
-Go to line 69 and change the API_KEY
-```
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run dev
+    return {
+      chainId: 1,
+      API_KEY: "Your API Key",
+    };
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+7. npm run dev
