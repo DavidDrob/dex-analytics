@@ -7,7 +7,7 @@
       <div class="h-24 flex items-left justify-center flex-col pl-4">
         <div class="flex items-center">
           <img src="./assets/logo.png" class="w-6 h-6 mr-2" />
-          <p class="text-2xl font-bold text-white">Sushi</p>
+          <p class="text-2xl font-bold text-white">Diffusion</p>
         </div>
         <p class="text-md text-white">Analytics</p>
       </div>
@@ -20,22 +20,8 @@
         </li>
         <li class="pl-4 mb-1"><router-link to="/pools">Pools</router-link></li>
       </ul>
-      <div class="fixed bottom-4 pl-4">
-        <label class="block text-left text-black">
-          <select
-            class="form-select block w-full mt-1 bg-white"
-            v-model="chainId"
-          >
-            <option label="Ethereum">1</option>
-            <option label="Polygon">137</option>
-            <option label="Avalanche">43114</option>
-            <option label="BSC">56</option>
-          </select>
-        </label>
-      </div>
     </aside>
     <main class="bg-gray-50 w-11/12 ml-auto">
-      <PriceBar :API_KEY="API_KEY" />
       <router-view :chainId="chainId" :API_KEY="API_KEY"></router-view>
     </main>
     <footer
@@ -44,6 +30,10 @@
         from-main-pink
         to-main-blue
         h-16
+        sticky
+        bottom-0
+        right-0
+        w-full
         flex
         items-center
         justify-center
@@ -56,17 +46,12 @@
 </template>
 
 <script>
-import PriceBar from "./components/PriceBar.vue";
-
 export default {
   name: "App",
-  components: {
-    PriceBar,
-  },
   data() {
     return {
-      chainId: 1,
-      API_KEY: "",
+      chainId: 9001,
+      API_KEY: import.meta.env.VITE_COVALENT_API,
     };
   },
 };

@@ -1,35 +1,36 @@
 <template>
   <div class="w-11/12 m-auto">
-    <p class="text-2xl text-main font-semibold text-black">
-      Volumes, Liquidity, Swaps
-    </p>
     <div class="flex justify-between flex-wrap">
       <div class="w-4/12 bg-white border-2 rounded-2xl p-6 mt-6">
-        <p class="font-light text-gray-600">Market Overview</p>
+        <p class="font-light text-gray-600">Volumes, Liquidity, Swaps</p>
         <ul class="flex flex-wrap">
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ volume_24h }}
-            </p>
-            <p class="font-semibold">24h Volume</p>
+            <p class="font-light text-3xl">-</p>
+            <p class="font-semibold">Active Pools</p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ pools_length }}
-            </p>
-            <p class="font-semibold">Pools</p>
+            <p class="font-light text-3xl">-</p>
+            <p class="font-semibold">Total Value Locked (TVL)</p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
             <p class="font-light text-3xl">
               {{ liquidity_24h }}
             </p>
-            <p class="font-semibold">Liquidity</p>
+            <p class="font-semibold">Liquidity (24h)</p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
             <p class="font-light text-3xl">
               {{ total_swaps_24h }}
             </p>
             <p class="font-semibold">24h Swaps</p>
+          </li>
+          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+            <p class="font-light text-3xl">-</p>
+            <p class="font-semibold">Most traded token (24h)</p>
+          </li>
+          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+            <p class="font-light text-3xl">-</p>
+            <p class="font-semibold">Total Fees (24h)</p>
           </li>
         </ul>
       </div>
@@ -86,7 +87,7 @@ export default {
   methods: {
     getVolumeAndSwapCount() {
       fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/sushiswap/ecosystem/?key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/ecosystem/?key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())
@@ -122,7 +123,7 @@ export default {
     },
     getCoins() {
       fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/sushiswap/tokens/?page-size=99999&key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/tokens/?page-size=99999&key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())
@@ -132,7 +133,7 @@ export default {
     },
     getPools() {
       fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/sushiswap/pools/?page-size=99999&key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/pools/?page-size=99999&key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())

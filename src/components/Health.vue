@@ -1,36 +1,78 @@
 <template>
-  <div class="w-11/12 m-auto">
-    <p class="text-2xl text-main font-semibold text-black">Health</p>
-    <div class="flex justify-between flex-wrap">
-      <div class="w-full bg-white border-2 rounded-2xl p-6 mt-6">
-        <p class="font-light text-gray-600">Health Overview</p>
-        <ul class="flex">
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ latest_block }}
-            </p>
-            <p class="font-semibold">Latest Block Height</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ new Date(latest_block_signed_at).toLocaleString() }}
-            </p>
-            <p class="font-semibold">Latest Block signed at</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ synced_block }}
-            </p>
-            <p class="font-semibold">Synced Block Height</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
-              {{ new Date(synced_block_signed_at).toLocaleString() }}
-            </p>
-            <p class="font-semibold">Synced Block signed at</p>
-          </li>
-        </ul>
-      </div>
+  <div class="flex flex-wrap w-full">
+    <div class="bg-white border-2 rounded-2xl p-6 mt-6 grid place-items-center">
+      <p class="font-light text-gray-600 w-full">Health Overview</p>
+      <ul class="flex">
+        <li
+          class="
+            w-1/2
+            h-40
+            flex
+            justify-center
+            items-center
+            flex-col
+            text-center
+          "
+        >
+          <p class="font-light text-xl">
+            {{ latest_block }}
+          </p>
+          <p class="font-semibold">Latest Block Height</p>
+        </li>
+
+        <li
+          class="
+            w-1/2
+            h-40
+            flex
+            justify-center
+            items-center
+            flex-col
+            text-center
+          "
+        >
+          <p class="font-light text-xl">
+            {{ synced_block }}
+          </p>
+          <p class="font-semibold">Synced Block Height</p>
+        </li>
+        <li
+          class="
+            w-1/2
+            h-40
+            flex
+            justify-center
+            items-center
+            flex-col
+            text-center
+          "
+        >
+          <p class="font-light text-xl">
+            {{
+              new Date(latest_block_signed_at).toLocaleString("en-US", options)
+            }}
+          </p>
+          <p class="font-semibold">Latest Block signed at</p>
+        </li>
+        <li
+          class="
+            w-1/2
+            h-40
+            flex
+            justify-center
+            items-center
+            flex-col
+            text-center
+          "
+        >
+          <p class="font-light text-xl">
+            {{
+              new Date(synced_block_signed_at).toLocaleString("en-US", options)
+            }}
+          </p>
+          <p class="font-semibold">Synced Block signed at</p>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -51,12 +93,18 @@ export default {
       latest_block_signed_at: undefined,
       synced_block: undefined,
       synced_block_signed_at: undefined,
+      options: {
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      },
     };
   },
   methods: {
     getHealth() {
       fetch(
-        `https://api.covalenthq.com/v1/1/xy=k/sushiswap/health/?key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/9001/xy=k/diffusion/health/?key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())

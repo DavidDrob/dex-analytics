@@ -1,7 +1,8 @@
 <template>
+  <!-- TODO: Calculate height by screen size -->
   <apexchart
     type="area"
-    height="350"
+    height="500"
     width="100%"
     :options="options"
     :series="options.series"
@@ -79,6 +80,7 @@ export default {
                 });
                 let day = dt.split(" ")[1].replace(",", "");
                 return day % 2 == 1 ? dt : "";
+                // TODO: fix this
               }
               return "";
             },
