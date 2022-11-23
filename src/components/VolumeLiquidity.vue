@@ -5,32 +5,34 @@
         <p class="font-light text-gray-600">Volumes, Liquidity, Swaps</p>
         <ul class="flex flex-wrap">
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">-</p>
-            <p class="font-semibold">Active Pools</p>
+            <p class="font-semibold text-3xl">{{ pools_length }}</p>
+            <p class="font-light">Active Pools (7d)</p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">-</p>
-            <p class="font-semibold">Total Value Locked (TVL)</p>
+            <p class="font-semibold text-3xl">{{ TVL }}</p>
+            <p class="font-light text-center">
+              Total Value Locked (excl. governance tokens)
+            </p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
+            <p class="font-semibold text-3xl">
               {{ liquidity_24h }}
             </p>
-            <p class="font-semibold">Liquidity (24h)</p>
+            <p class="font-light">Liquidity (24h)</p>
           </li>
           <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">
+            <p class="font-semibold text-3xl">{{ fees_24h }}</p>
+            <p class="font-light">Total Fees (24h)</p>
+          </li>
+          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+            <p class="font-semibold text-3xl">{{ most_traded }}</p>
+            <p class="font-light">Most traded token (24h)</p>
+          </li>
+          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+            <p class="font-semibold text-3xl">
               {{ total_swaps_24h }}
             </p>
-            <p class="font-semibold">24h Swaps</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">-</p>
-            <p class="font-semibold">Most traded token (24h)</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-light text-3xl">-</p>
-            <p class="font-semibold">Total Fees (24h)</p>
+            <p class="font-light">24h Swaps</p>
           </li>
         </ul>
       </div>
@@ -54,8 +56,8 @@
 
 <script>
 import config from "../assets/config";
-// import Area from "./Area.vue";
 import Chart from "./Chart.vue";
+import { useDataStore } from "../stores/useDataStore";
 
 export default {
   name: "VolumeLiquidity",
@@ -82,6 +84,10 @@ export default {
       coins_length: null,
       pools_length: null,
       total_swaps_24h: null,
+      TVL: 0,
+      most_traded: 0,
+      API_KEY: import.meta.env.VITE_COVALENT_API,
+      useData: useDataStore(),
     };
   },
   methods: {
@@ -92,6 +98,9 @@ export default {
       )
         .then((response) => response.json())
         .then((data) => {
+          this.useData.volume_30d = data.data.items[0].volume_chart_30d;
+
+          this.pools_length = data.data.items[0].total_active_pairs_7d;
           this.volumes_30d = data.data.items[0].volume_chart_30d;
           this.volume_24h = this.volumes_30d[0].volume_quote.toLocaleString(
             "en-US",
@@ -128,33 +137,29 @@ export default {
       )
         .then((response) => response.json())
         .then((data) => {
+          let sum = 0;
+          let highestVolume = data.data.items[0];
+
           this.coins_length = data.data.items.length;
-        });
-    },
-    getPools() {
-      fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/pools/?page-size=99999&key=${this.API_KEY}`,
-        config
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          this.pools_length = data.data.items.length;
+          data.data.items.forEach((token) => {
+            sum += token.total_liquidity_quote;
+            if (
+              token.total_volume_24h_quote >
+              highestVolume.total_volume_24h_quote
+            )
+              highestVolume = token;
+          });
+          this.TVL = sum.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          });
+          this.most_traded = highestVolume.contract_name;
         });
     },
   },
   created() {
     this.getVolumeAndSwapCount();
     this.getCoins();
-    this.getPools();
-  },
-  watch: {
-    chainId(newValue, oldValue) {
-      if (newValue != oldValue) {
-        this.getVolumeAndSwapCount();
-        this.getCoins();
-        this.getPools();
-      }
-    },
   },
 };
 </script>

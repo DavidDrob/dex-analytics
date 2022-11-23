@@ -24,7 +24,7 @@
     <main class="bg-gray-50 w-11/12 ml-auto">
       <router-view :chainId="chainId" :API_KEY="API_KEY"></router-view>
     </main>
-    <footer
+    <!-- <footer
       class="
         bg-gradient-to-l
         from-main-pink
@@ -41,7 +41,7 @@
       "
     >
       Powered by&nbsp;<a href="https://www.covalenthq.com/">COVALENT</a>
-    </footer>
+    </footer> -->
   </div>
 </template>
 

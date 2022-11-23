@@ -14,10 +14,10 @@
             text-center
           "
         >
-          <p class="font-light text-xl">
+          <p class="font-semibold text-xl">
             {{ latest_block }}
           </p>
-          <p class="font-semibold">Latest Block Height</p>
+          <p class="font-light">Latest Block Height</p>
         </li>
 
         <li
@@ -31,10 +31,10 @@
             text-center
           "
         >
-          <p class="font-light text-xl">
+          <p class="font-semibold text-xl">
             {{ synced_block }}
           </p>
-          <p class="font-semibold">Synced Block Height</p>
+          <p class="font-light">Synced Block Height</p>
         </li>
         <li
           class="
@@ -47,12 +47,12 @@
             text-center
           "
         >
-          <p class="font-light text-xl">
+          <p class="font-semibold text-xl">
             {{
               new Date(latest_block_signed_at).toLocaleString("en-US", options)
             }}
           </p>
-          <p class="font-semibold">Latest Block signed at</p>
+          <p class="font-light">Latest Block signed at</p>
         </li>
         <li
           class="
@@ -65,12 +65,12 @@
             text-center
           "
         >
-          <p class="font-light text-xl">
+          <p class="font-semibold text-xl">
             {{
               new Date(synced_block_signed_at).toLocaleString("en-US", options)
             }}
           </p>
-          <p class="font-semibold">Synced Block signed at</p>
+          <p class="font-light">Synced Block signed at</p>
         </li>
       </ul>
     </div>
