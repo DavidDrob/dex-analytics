@@ -3,39 +3,45 @@
     <div class="flex justify-between flex-wrap">
       <div class="w-4/12 bg-white border-2 rounded-2xl p-6 mt-6">
         <p class="font-light text-gray-600">Volumes, Liquidity, Swaps</p>
-        <ul class="flex flex-wrap">
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">{{ pools_length }}</p>
-            <p class="font-light">Active Pools (7d)</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">{{ TVL }}</p>
-            <p class="font-light text-center">
-              Total Value Locked (excl. governance tokens)
-            </p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">
-              {{ liquidity_24h }}
-            </p>
-            <p class="font-light">Liquidity (24h)</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">{{ fees_24h }}</p>
-            <p class="font-light">Total Fees (24h)</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">{{ most_traded }}</p>
-            <p class="font-light">Most traded token (24h)</p>
-          </li>
-          <li class="w-1/2 h-40 flex justify-center items-center flex-col">
-            <p class="font-semibold text-3xl">
-              {{ total_swaps_24h }}
-            </p>
-            <p class="font-light">24h Swaps</p>
-          </li>
-        </ul>
+        <div class="w-full h-full grid place-items-center" v-if="loading">
+          <div class="spinner"></div>
+        </div>
+        <div v-else>
+          <ul class="flex flex-wrap">
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">{{ pools_length }}</p>
+              <p class="font-light">Active Pools (7d)</p>
+            </li>
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">{{ TVL }}</p>
+              <p class="font-light text-center">
+                Total Value Locked (excl. governance tokens)
+              </p>
+            </li>
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">
+                {{ liquidity_24h }}
+              </p>
+              <p class="font-light">Liquidity (24h)</p>
+            </li>
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">{{ fees_24h }}</p>
+              <p class="font-light">Total Fees (24h)</p>
+            </li>
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">{{ most_traded }}</p>
+              <p class="font-light">Most traded token (24h)</p>
+            </li>
+            <li class="w-1/2 h-40 flex justify-center items-center flex-col">
+              <p class="font-semibold text-3xl">
+                {{ total_swaps_24h }}
+              </p>
+              <p class="font-light">24h Swaps</p>
+            </li>
+          </ul>
+        </div>
       </div>
+
       <div
         class="
           w-7/12
@@ -88,6 +94,7 @@ export default {
       most_traded: 0,
       API_KEY: import.meta.env.VITE_COVALENT_API,
       useData: useDataStore(),
+      loading: true,
     };
   },
   methods: {
@@ -154,6 +161,7 @@ export default {
             currency: "USD",
           });
           this.most_traded = highestVolume.contract_name;
+          this.loading = false;
         });
     },
   },

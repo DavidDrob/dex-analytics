@@ -1,8 +1,26 @@
 <template>
   <div class="flex flex-wrap w-full">
-    <div class="bg-white border-2 rounded-2xl p-6 mt-6 grid place-items-center">
+    <div
+      class="
+        bg-white
+        border-2
+        rounded-2xl
+        p-6
+        mt-6
+        w-11/12
+        grid
+        place-items-center
+      "
+    >
       <p class="font-light text-gray-600 w-full">Health Overview</p>
-      <ul class="flex">
+      <div
+        class="w-full grid place-items-center"
+        style="height: 165px"
+        v-if="loading"
+      >
+        <div class="spinner"></div>
+      </div>
+      <ul class="flex w-full" v-else>
         <li
           class="
             w-1/2
@@ -99,6 +117,7 @@ export default {
         hour: "numeric",
         minute: "numeric",
       },
+      loading: true,
     };
   },
   methods: {
@@ -115,6 +134,7 @@ export default {
           this.synced_block = data.data.items[0].synced_block_height;
           this.synced_block_signed_at =
             data.data.items[0].synced_block_signed_at;
+          this.loading = false;
         });
     },
   },

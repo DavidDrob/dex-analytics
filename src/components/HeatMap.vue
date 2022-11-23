@@ -1,15 +1,20 @@
 <template>
-  <div class="flex flex-wrap w-full">
+  <div class="flex flex-wrap w-11/12">
     <div class="bg-white border-2 rounded-2xl p-6 mt-6 w-full">
       <p class="font-light text-gray-600">
         Average Volume on certain weekdays (last 30 days)
       </p>
+      <div class="w-full h-full grid place-items-center" v-if="loading">
+        <div class="spinner"></div>
+      </div>
       <apexchart
+        style="height: 165px"
         type="heatmap"
         height="150"
         width="100%"
         :options="options"
         :series="options.series"
+        v-else
       >
       </apexchart>
     </div>
@@ -33,6 +38,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       options: {
         theme: {
           monochrome: {
@@ -133,9 +139,10 @@ export default {
         dayRegistry[property].forEach((item) => {
           sum += item;
         });
-        console.log(property);
         this.options.series[0].data[property].y = sum;
       }
+
+      this.loading = false;
     },
   },
 };
