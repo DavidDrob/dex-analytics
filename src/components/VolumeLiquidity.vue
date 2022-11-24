@@ -14,9 +14,19 @@
             </li>
             <li class="w-1/2 h-40 flex justify-center items-center flex-col">
               <p class="font-semibold text-3xl">{{ TVL }}</p>
-              <p class="font-light text-center">
-                Total Value Locked (excl. governance tokens)
-              </p>
+              <div class="tooltip font-light text-center">
+                <p class="flex">
+                  TVL
+                  <img
+                    class="pl-1 pb-3 w-5"
+                    src="../assets/help-circle.svg"
+                    alt="tooltip"
+                  />
+                </p>
+                <span class="tooltiptext"
+                  >Total Value Locked excluding governance tokens</span
+                >
+              </div>
             </li>
             <li class="w-1/2 h-40 flex justify-center items-center flex-col">
               <p class="font-semibold text-3xl">
@@ -171,3 +181,46 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  width: 300px;
+  padding: 5px 20px;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 0%;
+  left: 125%;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
