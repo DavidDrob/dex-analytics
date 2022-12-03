@@ -22,13 +22,13 @@
         </div>
         <div class="text-center flex flex-col text-xl mb-8">
           <span class="font-semibold">
-            {{ totalSupply }} {{ govToken.symbol }}
+            ${{ govToken.symbol }} {{ totalSupply }}
           </span>
           <span class="font-light">Total supply</span>
         </div>
         <div class="text-center flex flex-col text-xl -mb-4">
           <span class="font-semibold">
-            {{ liquidity }} {{ govToken.symbol }}
+            ${{ govToken.symbol }} {{ format(liquidity) }}
           </span>
           <span class="font-light">Liquidity in Diffusion DEX</span>
         </div>
@@ -80,7 +80,10 @@ export default {
       (await contract.totalSupply()).toString().substring(0, 9)
     );
 
-    this.totalSupply = this.format(ts);
+    this.totalSupply = ts
+      .toFixed(2)
+      .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+      .replace(".00", "");
   },
   watch: {
     govToken(newValue, oldValue) {
@@ -93,8 +96,10 @@ export default {
   },
   methods: {
     format(value) {
-      return value
+      const n = value?.toString();
+      return parseInt(n)
         .toFixed(2)
+        ?.toString()
         .replace(/\d(?=(\d{3})+\.)/g, "$&,")
         .replace(".00", "");
     },
