@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white border-2 rounded-2xl p-6 mt-6 w-1/4 max-h-full">
+  <div class="bg-white border-2 rounded-2xl p-6 mt-6 w-1/4 h-full">
     <p class="font-light text-gray-600 w-full">Governance token</p>
     <div
       class="w-full grid place-items-center"
@@ -8,8 +8,8 @@
     >
       <div class="spinner"></div>
     </div>
-    <main class="w-full pt-6" v-else>
-      <div class="flex mb-4">
+    <main class="w-full py-6" v-else>
+      <div class="flex mb-4 items-center">
         <img src="../assets/diffusion.png" :alt="govToken.symbol" />
         <p class="font-semibold text-xl ml-2">
           {{ govToken.name }} ({{ govToken.symbol }})

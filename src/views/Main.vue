@@ -20,7 +20,7 @@
     </div>
     <div class="w-11/12 m-auto mt-10 flex justify-between">
       <Governance :govToken="govToken" />
-      <Tokens class="flex justify-end" />
+      <Tokens :tokens="tokens" class="flex justify-end" />
     </div>
   </div>
 </template>
@@ -66,8 +66,9 @@ export default {
               symbol: element.contract_ticker_symbol,
               swaps: element.swap_count_24h,
               liquidity: element.total_liquidity,
+              liquidityQuote: element.total_liquidity_quote,
               quote_rate: element.quote_rate,
-              volume: element.total_volume_24h,
+              volume: element.total_volume_24h_quote,
               address: element.contract_address,
               logo: element.logo_url,
             };
