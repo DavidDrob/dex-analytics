@@ -1,52 +1,39 @@
 <template>
-  <div class="w-11/12 mt-10 m-auto">
-    <!-- {{ tokenList }} -->
-    <p class="text-2xl text-main font-semibold text-black">Tokens</p>
+  <div class="w-11/12 m-auto">
+    <p class="w-11/12 text-3xl text-main font-semibold text-indigo-600 py-4">
+      Tokens
+    </p>
+
     <div class="flex justify-between flex-wrap">
       <div class="w-full bg-white border-2 rounded-2xl p-6 mt-6">
-        <p class="font-light text-gray-600">Most Traded Tokens in last 24h</p>
-        <div class="flex my-4 text-lg font-semibold justify-between">
-          <div class="flex items-center">
-            <p class="mr-4">#</p>
-            <div>
-              <p class="mr-4 flex">Token</p>
-            </div>
-          </div>
-          <div class="flex items-center justify-end w-4/6 text-right">
-            <p class="w-2/12">Swaps (24h)</p>
-            <p class="w-4/12">Volumes (24h)</p>
-            <p class="w-3/12">Quote Rate</p>
-          </div>
+        <p class="font-light text-gray-600">
+          Most Traded Tokens in the last 24h
+        </p>
+        <div
+          class="w-full h-full grid place-items-center"
+          style="height: 100%"
+          v-if="loading"
+        >
+          <div class="spinner"></div>
         </div>
-        <ul v-for="(token, index) in tokens" :key="index" class="text-bg-light">
-          <div
-            class="flex mb-2 justify-between border-gray-400 border-solid pt-1"
-            style="border-top-width: 1px"
-          >
-            <div class="flex items-center">
-              <li class="mr-4">{{ index + 1 }}</li>
-              <div>
-                <div class="flex">
-                  <li class="mr-4 font-semibold">{{ token.name }}</li>
-                  <li class="text-gray-600">{{ token.symbol }}</li>
-                </div>
-                <li class="font-light text-xs">{{ token.address }}</li>
-              </div>
-            </div>
-            <div class="flex items-center justify-end w-4/6 text-right">
-              <li class="w-1/12">{{ token.swaps }}</li>
-              <li class="w-4/12">{{ token.volume }} {{ token.symbol }}</li>
-              <li class="w-3/12">
-                {{
-                  token.quote_rate.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })
-                }}
-              </li>
-            </div>
-          </div>
-        </ul>
+        <table class="table-auto w-full" v-else>
+          <thead class="font-semibold text-left">
+            <tr>
+              <th>Token</th>
+              <th>Volume (24h)</th>
+              <th>Liquidity</th>
+              <th class="text-right">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="token in tokens" :key="token.symbol" class="border-b">
+              <td>{{ token.name }}</td>
+              <td>${{ format(token.volume) }}</td>
+              <td>${{ format(token.liquidityQuote) }}</td>
+              <td class="text-right">${{ format(token.quote_rate) }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -60,6 +47,7 @@ export default {
   data() {
     return {
       tokens: [],
+      loading: true,
     };
   },
   props: {
@@ -74,7 +62,7 @@ export default {
   methods: {
     getTokens() {
       fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/sushiswap/tokens/?key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/tokens/?key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())
@@ -85,30 +73,36 @@ export default {
               symbol: element.contract_ticker_symbol,
               swaps: element.swap_count_24h,
               liquidity: element.total_liquidity,
+              liquidityQuote: element.total_liquidity_quote,
               quote_rate: element.quote_rate,
-              volume: element.total_volume_24h,
+              volume: element.total_volume_24h_quote,
               address: element.contract_address,
+              logo: element.logo_url,
             };
             this.tokens.push(item);
           });
           this.tokens.sort((a, b) => {
-            if (a.swaps > b.swaps) return -1;
-            if (a.swaps < b.swaps) return 1;
+            if (a.volume > b.volume) return -1;
+            if (a.volume < b.volume) return 1;
             return 0;
           });
+          console.log(this.tokens);
+          this.loading = false;
         });
+    },
+    format(value) {
+      if (value == undefined) return value;
+      const n = value?.toString();
+      return parseFloat(n)
+        .toFixed(2)
+        ?.toString()
+        .substring(0, 9)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+        .replace(".00", "");
     },
   },
   mounted() {
     this.getTokens();
-  },
-  watch: {
-    chainId(newValue, oldValue) {
-      if (newValue != oldValue) {
-        this.tokens = [];
-        this.getTokens();
-      }
-    },
   },
 };
 </script>

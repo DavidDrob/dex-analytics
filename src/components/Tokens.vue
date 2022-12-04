@@ -4,14 +4,7 @@
     <router-link class="font-light text-gray-600 mb-2" to="/tokens">
       See all
     </router-link>
-    <div
-      class="w-full h-full grid place-items-center"
-      style="height: 100%"
-      v-if="false"
-    >
-      <div class="spinner"></div>
-    </div>
-    <table class="table-auto" style="border-spacing: 8px" v-else>
+    <table class="table-auto">
       <thead class="font-semibold text-left">
         <tr>
           <th>Token</th>
