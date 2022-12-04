@@ -6,7 +6,7 @@
         m-auto
         text-3xl text-main
         font-semibold
-        text-indigo-600
+        text-green-500
         py-4
       "
     >

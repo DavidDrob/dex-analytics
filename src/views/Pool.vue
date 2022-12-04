@@ -1,6 +1,6 @@
 <template>
   <div class="w-11/12 m-auto">
-    <p class="w-11/12 text-3xl text-main font-semibold text-indigo-600 py-4">
+    <p class="w-11/12 text-3xl text-main font-semibold text-green-600 py-4">
       {{ name ? name : "Pools" }}
     </p>
     <div
@@ -274,7 +274,7 @@ export default {
             speed: 350,
           },
         },
-        colors: ["#BF0DC3"],
+        colors: ["#34d399"],
         legend: {
           labels: {
             colors: "#A1A5AB",

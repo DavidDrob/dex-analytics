@@ -1,6 +1,6 @@
 <template>
   <div class="w-11/12 m-auto">
-    <p class="w-11/12 text-3xl text-main font-semibold text-indigo-600 py-4">
+    <p class="w-11/12 text-3xl text-main font-semibold text-green-600 py-4">
       Tokens
     </p>
 

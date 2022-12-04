@@ -7,12 +7,9 @@
         md:w-1/12
         flex
         justify-around
-        bg-gradient-to-br
-        from-green-400
-        to-blue-700
+        bg-gray-800
         md:flex-col md:justify-start md:h-screen md:fixed
       "
-      style="background-color: #424656"
     >
       <div class="h-24 flex items-left justify-center flex-col pl-4">
         <div class="flex items-center">
@@ -59,7 +56,7 @@ export default {
   padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #9925be;
+  background: #34d399;
   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);

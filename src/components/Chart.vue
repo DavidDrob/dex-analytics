@@ -105,7 +105,7 @@ export default {
             speed: 350,
           },
         },
-        colors: ["#076BD9", "#BF0DC3"],
+        colors: ["#076BD9", "#34d399"],
         legend: {
           labels: {
             colors: "#A1A5AB",

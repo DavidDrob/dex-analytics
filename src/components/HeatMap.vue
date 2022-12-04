@@ -43,7 +43,7 @@ export default {
         theme: {
           monochrome: {
             enabled: true,
-            color: "#9925be",
+            color: "#34d399",
             shadeTo: "light",
             shadeIntensity: 0.65,
           },

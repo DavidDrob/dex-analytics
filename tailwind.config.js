@@ -9,8 +9,8 @@ module.exports = {
           light: "#202231",
         },
         main: {
-          pink: "#BF0DC3",
           blue: "#076BD9",
+          green: "#34d399",
         },
       },
     },
