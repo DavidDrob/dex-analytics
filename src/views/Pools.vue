@@ -1,19 +1,23 @@
 <template>
-  <div class="w-11/12 mt-10 m-auto">
+  <div class="w-11/12 m-auto">
+    <p class="w-11/12 text-3xl text-main font-semibold text-indigo-600 py-4">
+      Pools
+    </p>
     <div class="flex justify-between flex-wrap">
       <div class="w-full bg-white border-2 rounded-2xl p-6 mt-6">
-        <p class="font-light text-gray-600">Most used Pools in last 24h</p>
+        <p class="font-light text-gray-600">Top pairs by liquidity</p>
         <div class="flex my-4 text-lg font-semibold justify-between">
           <div class="flex items-center">
             <p class="mr-4">#</p>
             <div>
-              <p class="mr-4 flex">Pool Tokens</p>
+              <p class="mr-4 flex">Pool</p>
             </div>
           </div>
           <div class="flex items-center justify-end w-4/6 text-right">
-            <p class="w-2/12">Swaps (24h)</p>
-            <p class="w-4/12">Volumes (24h)</p>
-            <p class="w-4/12">Quote Rate</p>
+            <p class="w-3/12">Liquidity</p>
+            <p class="w-4/12">Volume (24h)</p>
+            <p class="w-4/12">Fees (24h)</p>
+            <p class="w-3/12">Fees (Annualized)</p>
           </div>
         </div>
         <div v-if="!pools" class="flex justify-center">
@@ -40,7 +44,7 @@
               "
               style="border-top-width: 1px"
             >
-              <div class="flex items-center">
+              <div class="flex items-center font-semibold">
                 <li class="mr-4">{{ index + 1 }}</li>
                 <div>
                   <div class="flex">
@@ -48,28 +52,25 @@
                     ⇋
                     <li class="ml-2">{{ pool.symbol_1 }}</li>
                   </div>
-                  <li class="font-light text-xs">{{ pool.address }}</li>
+                  <li class="font-light text-xs text-blue-500 underline">
+                    <router-link :to="`/pools/${pool.address}`">
+                      {{ pool.address }}
+                    </router-link>
+                  </li>
                 </div>
               </div>
               <div class="flex items-center justify-end w-4/6 text-right">
-                <li class="w-1/12">
-                  {{ pool.swaps }}
+                <li class="w-3/12">
+                  {{ pool.liquidity }}
                 </li>
                 <li class="w-4/12">
-                  {{
-                    pool.volume.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })
-                  }}
+                  {{ pool.volume }}
                 </li>
                 <li class="w-4/12">
-                  {{
-                    pool.quote_rate.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })
-                  }}
+                  {{ pool.fees }}
+                </li>
+                <li class="w-3/12">
+                  {{ (pool.annual_fees * 10).toFixed(2) }}%
                 </li>
               </div>
             </div>
@@ -102,7 +103,7 @@ export default {
   methods: {
     getPools() {
       fetch(
-        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/sushiswap/pools/?key=${this.API_KEY}`,
+        `https://api.covalenthq.com/v1/${this.chainId}/xy=k/diffusion/pools/?key=${this.API_KEY}`,
         config
       )
         .then((response) => response.json())
@@ -110,8 +111,19 @@ export default {
           data.data.items.forEach((element) => {
             const item = {
               address: element.exchange,
-              swaps: element.swap_count_24h,
-              volume: element.volume_24h_quote,
+              liquidity: element.total_liquidity_quote.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              }),
+              volume: element.volume_24h_quote.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              }),
+              fees: element.fee_24h_quote.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              }),
+              annual_fees: element.annualized_fee,
               quote_rate: element.quote_rate,
               symbol_0: element.token_0.contract_ticker_symbol,
               symbol_1: element.token_1.contract_ticker_symbol,
