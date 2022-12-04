@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       loading: true,
-      API_KEY: import.meta.env.VITE_COVALENT_API,
+      API_KEY: "ckey_ba34fd216fce4a408160dfc598c",
       totalSupply: 0,
       liquidity: 0,
     };

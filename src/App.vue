@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       chainId: 9001,
-      API_KEY: import.meta.env.VITE_COVALENT_API,
+      API_KEY: "ckey_ba34fd216fce4a408160dfc598c",
     };
   },
 };

@@ -105,7 +105,7 @@ export default {
       total_swaps_24h: null,
       TVL: 0,
       most_traded: 0,
-      API_KEY: import.meta.env.VITE_COVALENT_API,
+      API_KEY: "ckey_ba34fd216fce4a408160dfc598c",
       useData: useDataStore(),
       loading: true,
     };
