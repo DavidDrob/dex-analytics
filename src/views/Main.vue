@@ -14,11 +14,21 @@
       <span class="font-light">Overview</span>
     </p>
     <VolumeLiquidity :chainId="chainId" :API_KEY="API_KEY" />
-    <div class="w-11/12 m-auto mt-10 flex justify-between">
-      <HeatMap />
-      <Health class="flex justify-end" :API_KEY="API_KEY" />
+    <div
+      class="
+        w-11/12
+        m-auto
+        md:mt-10
+        flex flex-col
+        md:flex-row
+        items-center
+        justify-between
+      "
+    >
+      <HeatMap class="hidden md:block" />
+      <Health class="flex justify-center md:justify-end" :API_KEY="API_KEY" />
     </div>
-    <div class="w-11/12 m-auto mt-10 flex justify-between">
+    <div class="w-11/12 m-auto mt-10 flex flex-col md:flex-row justify-between">
       <Governance :govToken="govToken" />
       <Tokens :tokens="tokens" class="flex justify-end" />
     </div>

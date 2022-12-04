@@ -1,13 +1,15 @@
 <template>
   <div class="w-11/12 m-auto">
-    <div class="flex justify-between flex-wrap">
-      <div class="w-4/12 bg-white border-2 rounded-2xl p-6 mt-6">
+    <div class="flex flex-col md:flex-row justify-between flex-wrap">
+      <div class="w-full md:w-4/12 bg-white border-2 rounded-2xl p-6 mt-6">
         <p class="font-light text-gray-600">Volumes, Liquidity, Swaps</p>
         <div class="w-full h-full grid place-items-center" v-if="loading">
           <div class="spinner"></div>
         </div>
         <div v-else>
-          <ul class="flex flex-wrap">
+          <ul
+            class="flex flex-col items-center text-center md:flex-row flex-wrap"
+          >
             <li class="w-1/2 h-40 flex justify-center items-center flex-col">
               <p class="font-semibold text-3xl">{{ pools_length }}</p>
               <p class="font-light">Active Pools (7d)</p>
@@ -54,7 +56,8 @@
 
       <div
         class="
-          w-7/12
+          w-full
+          md:w-7/12
           flex flex-col
           justify-center
           bg-white

@@ -1,5 +1,16 @@
 <template>
-  <div class="bg-white border-2 rounded-2xl p-6 mt-6 w-8/12 flex flex-col">
+  <div
+    class="
+      bg-white
+      border-2
+      rounded-2xl
+      p-6
+      mt-6
+      w-full
+      md:w-8/12
+      flex flex-col
+    "
+  >
     <p class="font-light text-gray-600 w-full">15 Most traded tokens (24h)</p>
     <router-link class="font-light text-gray-600 mb-2" to="/tokens">
       See all
@@ -8,9 +19,9 @@
       <thead class="font-semibold text-left">
         <tr>
           <th>Token</th>
-          <th>Volume (24h)</th>
-          <th>Liquidity</th>
-          <th class="text-right">Price</th>
+          <th class="text-right md:text-left">Volume (24h)</th>
+          <th class="hidden md:table-cell">Liquidity</th>
+          <th class="text-right hidden md:table-cell">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -20,9 +31,13 @@
           class="border-b"
         >
           <td>{{ token.name }}</td>
-          <td>${{ format(token.volume) }}</td>
-          <td>${{ format(token.liquidityQuote) }}</td>
-          <td class="text-right">${{ format(token.quote_rate) }}</td>
+          <td class="text-right md:text-left">${{ format(token.volume) }}</td>
+          <td class="hidden md:table-cell">
+            ${{ format(token.liquidityQuote) }}
+          </td>
+          <td class="text-right hidden md:table-cell">
+            ${{ format(token.quote_rate) }}
+          </td>
         </tr>
       </tbody>
     </table>

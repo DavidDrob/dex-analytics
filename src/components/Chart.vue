@@ -112,6 +112,21 @@ export default {
             colors: "#A1A5AB",
           },
         },
+        responsive: [
+          {
+            breakpoint: 450,
+            options: {
+              yaxis: [
+                {
+                  show: false,
+                },
+                {
+                  show: false,
+                },
+              ],
+            },
+          },
+        ],
       },
     };
   },

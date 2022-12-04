@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white border-2 rounded-2xl p-6 mt-6 w-1/4 h-full">
+  <div class="bg-white border-2 rounded-2xl p-6 md:mt-6 w-full md:w-1/4 h-full">
     <p class="font-light text-gray-600 w-full">Governance token</p>
     <div
       class="w-full grid place-items-center"

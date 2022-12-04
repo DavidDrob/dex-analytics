@@ -16,24 +16,47 @@
         >
           <div class="spinner"></div>
         </div>
-        <table class="table-auto w-full" v-else>
-          <thead class="font-semibold text-left">
-            <tr>
-              <th>Token</th>
-              <th>Volume (24h)</th>
-              <th>Liquidity</th>
-              <th class="text-right">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="token in tokens" :key="token.symbol" class="border-b">
-              <td>{{ token.name }}</td>
-              <td>${{ format(token.volume) }}</td>
-              <td>${{ format(token.liquidityQuote) }}</td>
-              <td class="text-right">${{ format(token.quote_rate) }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <div class="flex my-4 text-lg font-semibold justify-between">
+            <div class="flex items-center">
+              <p class="mr-4">#</p>
+              <div>
+                <p class="mr-4 flex">Token</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-end w-4/6 text-right">
+              <p class="w-4/12">Volume (24h)</p>
+              <p class="w-4/12">Total Liquidity</p>
+              <p class="w-4/12">Price in USD</p>
+            </div>
+          </div>
+          <ul
+            v-for="(token, index) in tokens"
+            :key="index"
+            class="text-bg-light"
+          >
+            <div
+              class="
+                flex
+                mb-2
+                justify-between
+                border-gray-400 border-solid
+                pt-1
+              "
+              style="border-top-width: 1px"
+            >
+              <div class="flex items-center font-semibold">
+                <div class="mr-4">{{ index + 1 }}</div>
+                <div>{{ token.name }}</div>
+              </div>
+              <div class="flex items-center justify-end w-4/6 text-right">
+                <li class="w-4/12">${{ format(token.volume) }}</li>
+                <li class="w-4/12">${{ format(token.liquidityQuote) }}</li>
+                <li class="w-4/12">${{ format(token.quote_rate) }}</li>
+              </div>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -86,7 +109,6 @@ export default {
             if (a.volume < b.volume) return 1;
             return 0;
           });
-          console.log(this.tokens);
           this.loading = false;
         });
     },

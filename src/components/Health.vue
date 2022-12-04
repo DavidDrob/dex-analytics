@@ -20,11 +20,13 @@
       >
         <div class="spinner"></div>
       </div>
-      <ul class="flex w-full" v-else>
+      <ul class="flex flex-col md:flex-row items-center w-full" v-else>
         <li
           class="
-            w-1/2
-            h-40
+            w-full
+            md:w-1/2
+            h-24
+            md:h-40
             flex
             justify-center
             items-center
@@ -40,8 +42,10 @@
 
         <li
           class="
-            w-1/2
-            h-40
+            w-full
+            md:w-1/2
+            h-24
+            md:h-40
             flex
             justify-center
             items-center
@@ -56,8 +60,10 @@
         </li>
         <li
           class="
-            w-1/2
-            h-40
+            w-full
+            md:w-1/2
+            h-24
+            md:h-40
             flex
             justify-center
             items-center
@@ -74,8 +80,10 @@
         </li>
         <li
           class="
-            w-1/2
-            h-40
+            w-full
+            md:w-1/2
+            h-24
+            md:h-40
             flex
             justify-center
             items-center
