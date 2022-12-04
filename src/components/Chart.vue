@@ -2,7 +2,6 @@
   <div class="w-full grid place-items-center" v-if="!data?.length">
     <div class="spinner"></div>
   </div>
-  <!-- TODO: Calculate height by screen size -->
   <apexchart
     type="area"
     height="500"

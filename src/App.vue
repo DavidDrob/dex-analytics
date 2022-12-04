@@ -7,6 +7,9 @@
         md:w-1/12
         flex
         justify-around
+        bg-gradient-to-br
+        from-green-400
+        to-blue-700
         md:flex-col md:justify-start md:h-screen md:fixed
       "
       style="background-color: #424656"
@@ -18,7 +21,7 @@
         </div>
         <p class="text-md text-white">Analytics</p>
       </div>
-      <ul class="text-gray-400 flex items-center md:inline">
+      <ul class="text-white flex items-center md:inline">
         <li class="pl-4 mb-1">
           <router-link to="/">Ecosystem</router-link>
         </li>
